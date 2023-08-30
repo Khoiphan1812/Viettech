@@ -1,0 +1,19 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+.bg-custom-1{
+    background: linear-gradient(45deg,rgb(66, 66, 255),rgb(198, 40, 198));
+}
+.icon_color{
+	background: -webkit-linear-gradient(rgb(115, 115, 239),rgb(198, 19, 198));
+	-webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+	font-size: 50px;
+}
+.bg-custom-2{
+	background-image: url('../../img/bg.jpeg');
+}
+.content-5{
+	color: white;
+}

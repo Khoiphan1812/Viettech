@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.bg-custom1{
+    background-image: url("https://wp.alithemes.com/html/nest/demo/assets/imgs/slider/slider-6.png?fbclid=IwAR3MqcYehVLh4oRqCwuyk8SeNV0DRIPwCeFK2eOwdc0co9HdniU3xq1h4o8");
+    width: 100%;
+}
+.custom_img{
+    float: left;
+}
+.icon_color{
+    color: rgb(121, 121, 7);
+}
+.bg-custom2{
+    background-image: url("../img/Section1.jpg");
+}
+.colorgreen{
+    color: green;
+}
+.account{
+    text-decoration: none;
+    color: black;
+}
+input[type=radio]:checked{
+    background-color: green;
+}
+input[type=checkbox]:checked{
+    background-color: green;
+}

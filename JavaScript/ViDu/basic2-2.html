@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAVASCRIPT BASIC ASSIGNMENT - 2 - 2</title>
+    <script>
+        
+        function GreatestCommonDivisor(a, b) {
+        var c;
+    while (b !== 0) {
+        c = b;
+        b = a % b;
+        a = c;
+    }
+    return a;
+}
+
+
+var a = parseInt(prompt("Nhập số nguyên a:"));
+var b = parseInt(prompt("Nhập số nguyên b:"));
+
+
+var gcd = GreatestCommonDivisor(a, b);
+
+    </script>
+</head>
+<body>
+    <script>
+        document.write(`Ước chung lớn nhất của ${a} và ${b} là ${gcd}.`);
+    </script>
+</body>
+</html>

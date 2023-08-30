@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tong n phan tu</title>
+    <script>
+        var n = prompt("Nhap vao so phan tu :");
+        n = parseInt(n);
+        var sum_aray = [];
+
+        //Tao mang   
+        var no_1 = 1
+        for (var i = 0; i < n; i++) {
+            sum_aray[i] = i + 1;
+        }
+
+        //Tong
+        var sum = 0;
+        for (var i = 0; i < sum_aray.length; i++) {
+            sum += sum_aray[i];
+        }
+
+        document.write("Danh sách so phần tử :" + sum_aray[i]);
+        document.write("Tổng:" + sum);
+    </script>
+</head>
+
+<body>
+    <script>
+
+    </script>
+</body>
+
+</html>

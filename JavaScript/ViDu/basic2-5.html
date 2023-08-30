@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quản lý thông tin sinh viên</title>
+</head>
+<body>
+  <script>
+    // Khai báo một mảng để lưu thông tin sinh viên
+    var students = [];
+
+    // Hàm để thêm thông tin sinh viên vào mảng
+    function addStudent(id, name, age, gender) {
+      students.push({
+        id: id,
+        name: name,
+        age: age,
+        gender: gender
+      });
+    }
+
+    // Hàm để in thông tin sinh viên ra màn hình
+    function displayStudents() {
+      for (var i = 0; i < students.length; i++) {
+        var student = students[i];
+        document.write("Mã sinh viên: " + student.id + "<br>");
+        document.write("Tên sinh viên: " + student.name + "<br>");
+        document.write("Tuổi: " + student.age + "<br>");
+        document.write("Giới tính: " + student.gender + "<br>");
+        document.write("--------------<br>");
+      }
+    }
+
+    // Hàm để bắt đầu nhập thông tin từ bàn phím
+    function startInput() {
+      document.write("Nhập thông tin sinh viên từ bàn phím. Nhấn 'esc' để kết thúc.<br>");
+      document.addEventListener("keydown", handleInput);
+    }
+
+    // Hàm xử lý sự kiện khi người dùng nhập từ bàn phím
+    function handleInput(event) {
+      if (event.key === "Escape") {
+        document.write("Kết thúc nhập thông tin.<br>");
+        document.removeEventListener("keydown", handleInput);
+      } else {
+        var id = prompt("Nhập mã sinh viên:");
+        var name = prompt("Nhập tên sinh viên:");
+        var age = prompt("Nhập tuổi:");
+        var gender = prompt("Nhập giới tính:");
+        addStudent(id, name, age, gender);
+        document.write("Thêm thông tin sinh viên thành công.<br>");
+      }
+    }
+
+    // Bắt đầu nhập thông tin từ bàn phím khi trang được tải
+    startInput();
+  </script>
+</body>
+</html>

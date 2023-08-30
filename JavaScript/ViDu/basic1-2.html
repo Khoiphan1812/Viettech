@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAVASCRIPT BASIC ASSIGNMENT - 1 - 2</title>
+    <script>
+        //nhap 3 diem so toan-a ly-b hoa-c
+        var a =
+            prompt("Nhap vao diem toan:");
+            a = parseInt (a);
+        var b = prompt("Nhap vao diem ly:")
+            b = parseInt (b);
+        var c =
+            prompt("Nhap vao diem hoa:");
+            c = parseInt (c);
+        //diem trung binh va thu hang
+        var tb = (a+ b + c)/3;
+            tb = parseFloat (tb);
+        var  xh = "";
+        if (tb >= 8.0) {
+        xh = "Giỏi";
+        } else if (tb >= 6.5) {
+        xh = "Khá";
+        } else if (tb >= 5.0) {
+    xepHang = "Trung bình";
+} else {
+        xh = "Yếu";
+        }
+    </script>
+</head>
+<body>
+    <script>
+        document.write("Điểm trung bình" + tb);
+        document.write("Xếp hạng = " + xh);
+    </script>
+</body>
+</html>

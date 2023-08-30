@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Value Application</title>
+    <script>
+        var futureValue;
+
+        //get user entries
+        var investment=
+            prompt("Enter investment amount as xxxxx.xx");
+            investment = parseFloat (investment);
+            var rate = prompt ("Enter interest rate as xx.x");
+            rate = parseFloat(rate);
+            var years = prompt ("Enter number of years");
+            years = parseFloat(years);
+
+        //caculator
+        futureValue = investment;
+        for ( var i=1; i<= years ; i++){
+            futureValue = futureValue + (futureValue * rate / 100);
+        }
+        futureValue = parseInt(futureValue);
+    </script>
+</head>
+<body>
+    <main>
+        <script>
+            document.write("Investment amuont = " + investment);
+            document.write("Investment rate = " + rate);
+            document.write("Years = " + years);
+            document.write("Futute Value is = " + futureValue + "<br><br>");
+        </script>
+    Thanks!
+    </main>
+</body>
+</html>
