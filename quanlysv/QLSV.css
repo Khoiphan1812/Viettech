@@ -1,0 +1,62 @@
+/* style.css */
+/* Style the header */
+.container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Style the "Thêm Sinh viên" button */
+  .btn-primary {
+    margin-bottom: 20px;
+  }
+  
+  /* Style the table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  table,
+  th,
+  td {
+    border: 1px solid #47a140;
+  }
+  
+  th,
+  td {
+    padding: 8px;
+    text-align: center;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  /* Style the modal */
+  .modal-content {
+    border-radius: 10px;
+  }
+  
+  /* Style the form */
+  .form-group {
+    margin-bottom: 10px;
+  }
+  
+  /* Style the Xếp loại text color */
+  td:nth-child(7) {
+    font-weight: bold;
+  }
+  
+  /* Style the edit and delete buttons */
+  .btn-sm {
+    margin-right: 5px;
+  }
+  
+  /* Style the sorting buttons */
+  .sort-btn {
+    margin-left: 5px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+ 

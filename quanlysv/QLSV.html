@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Quản lý sinh viên</title>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>  -->
+    <link rel="stylesheet" href="QLSV.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="library_storage.js"></script>
+    <script type="text/javascript" src="library_QLSV.js"></script>
+    <script type="text/javascript" src="library_QLSVlist.js"></script>
+    <script type="text/javascript" src="library_fields.js"></script>
+    <script type="text/javascript" src="library_validate.js"></script>
+    <script type="text/javascript" src="library_validate_form.js"></script>
+    <script type="text/javascript" src="QLSV_list.js"></script>
+</head>
+
+<body>
+
+    <div class="container mt-4">
+        <h2>Quan Ly Sinh Vien</h2>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStudentModal">Thêm Sinh
+            viên</button>
+
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>Họ và tên</th>
+                    <th>Tuổi</th>
+                    <th>Giới tính</th>
+                    <th>Điểm lý thuyết</th>
+                    <th>Điểm thực hành</th>
+                    <th>Trung bình</th>
+                    <th>Xếp loại</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody id="studentList">
+                <!-- Dữ liệu sinh viên sẽ được hiển thị ở đây -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal Thêm Sinh viên -->
+
+    <div class="modal fade" id="addStudentModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm Sinh viên</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="addStudentForm">
+                        <div class="form-group">
+                            <label for="fullName">Họ và tên:</label>
+                            <input type="text" class="form-control" id="fullName" required>
+                            <span id="fullName_error">&nbsp;</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="birthYear">Năm sinh:</label>
+                            <input type="number" class="form-control" id="birthYear" min="1980" max="2005" required>
+                            <span id="birthYear_error">&nbsp;</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Giới tính:</label>
+                            <select class="form-control" id="gender">
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" required>
+                            <span id="email_error">&nbsp;</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="hometown">Quê quán:</label>
+                            <input type="text" class="form-control" id="hometown">
+                            <span id="hometown_error">&nbsp;</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="theoryScore">Điểm lý thuyết:</label>
+                            <input type="text" class="form-control" id="theoryScore" min="0" max="10" required>
+                            <span id="theoryScore_error">&nbsp;</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="practiceScore">Điểm thực hành:</label>
+                            <input type="text" class="form-control" id="practiceScore" min="0" max="10" required>
+                            <span id="practiceScore_error">&nbsp;</span>
+                        </div>
+                        <button type="button" id="addStudentButton" class="btn btn-outline-info" data-bs-toggle="modal"
+                            data-bs-target="#addStudentModal">Thêm Sinh viên</button>
+
+                    </form>
+                </div>
+                <button type="button" id="clearStudentButton" class="btn btn-outline-danger btn-block"
+                    data-bs-toggle="modal" data-bs-target="#addStudentModal">Xóa Danh
+                    Sách</button>
+                <button type="button" id="updateStudentButton" class="btn btn-outline-success btn-block"
+                    data-bs-toggle="modal" data-bs-target="#addStudentModal">Cập nhật Sinh
+                    viên</button>
+                <button type="button" id="cancelEdit" class="btn btn-outline--primary">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
