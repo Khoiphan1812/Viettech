@@ -15,6 +15,7 @@ var Student = function (
   this.hometown = hometown;
   this.theoryScore = theoryScore;
   this.practiceScore = practiceScore;
+  this.rowClass = "";
 };
 
 // Phương thức kiểm tra tính hợp lệ của Sinh viên

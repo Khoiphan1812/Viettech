@@ -11,6 +11,23 @@ var studentList = {
   deleteClickHandler: null,
   editClickHandler: null,
 
+  sortByMark: function () {
+    this.students.sort(function (a, b) {
+      return b.calculateAverage() - a.calculateAverage();
+    });
+  },
+
+  sortByName: function () {
+    this.students.sort(function (a, b) {
+      var fullNameA = a.fullName.toLowerCase(),
+        fullNameB = b.fullName.toLowerCase();
+
+      if (fullNameA < fullNameB) return -1;
+      if (fullNameA > fullNameB) return 1;
+      return 0;
+    });
+  },
+
   load: function () {
     var dataStringArray = this.storage.get();
     if (Array.isArray(dataStringArray)) {
@@ -71,27 +88,17 @@ var studentList = {
     this.storage.set(dataString);
   },
 
-  sort: function () {
-    this.students.sort(function (a, b) {
-      var avgA = a.calculateAverage();
-      var avgB = b.calculateAverage();
-      if (avgA < avgB) return 1;
-      if (avgA > avgB) return -1;
-      return 0;
-    });
-  },
-
   add: function (student) {
     this.students.push(student);
   },
 
   delete: function (i) {
-    this.sort();
+    this.sortByMark();
     this.students.splice(i, 1);
   },
 
   edit: function (i, newStudent) {
-    this.sort();
+    this.sortByMark();
     this.students.splice(i, 1, newStudent);
   },
 
@@ -102,12 +109,20 @@ var studentList = {
   },
 
   display: function () {
-    this.sort();
+    this.sortByMark();
     var html = "";
 
     for (var i = 0; i < this.students.length; i++) {
       var student = this.students[i];
-      html += "<tr>";
+      var mytr = "<tr>";
+      if (student.calculateAverage() >= 8) {
+        mytr = "<tr class='table-success'>";
+      } else if (student.calculateAverage() >= 6) {
+        mytr = "<tr class='table-primary'>";
+      } else {
+        mytr = "<tr class='table-danger'>";
+      }
+      html += mytr;
       html += "<td>" + student.fullName + "</td>";
       html += "<td>" + student.calculateAge() + "</td>";
       html += "<td>" + student.gender + "</td>";
@@ -122,7 +137,7 @@ var studentList = {
         i +
         '"><i class="bi bi-trash-fill"></i></a> | <a href="#" title="edit_' +
         i +
-        '"data-bs-toggle="modal" data-bs-target="#addStudentModal"><i class="bi bi-pencil-square"></i></</a></td>';
+        '"data-bs-toggle="modal" data-bs-target="#addStudentModal"><i class="bi bi-pencil-square"></i></a></td>';
       html += "</tr>";
     }
     this.displayDiv.innerHTML = html;

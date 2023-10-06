@@ -6,45 +6,47 @@ var $ = function (id) {
 
 var registerForm;
 var addToStudentList = function () {
-  var fullNameTextbox = $("fullName");
-  var birthYearTextbox = $("birthYear");
-  var genderSelect = $("gender");
-  var emailTextbox = $("email");
-  var hometownTextbox = $("hometown");
-  var theoryScoreTextbox = $("theoryScore");
-  var practiceScoreTextbox = $("practiceScore");
+  // Gọi hàm kiểm tra validateForm
+  if (registerForm.validateForm()) {
+    var fullNameTextbox = $("fullName");
+    var birthYearTextbox = $("birthYear");
+    var genderSelect = $("gender");
+    var emailTextbox = $("email");
+    var hometownTextbox = $("hometown");
+    var theoryScoreTextbox = $("theoryScore");
+    var practiceScoreTextbox = $("practiceScore");
 
-  var fullName = fullNameTextbox.value;
-  var birthYear = parseInt(birthYearTextbox.value);
-  var gender = genderSelect.value;
-  var email = emailTextbox.value;
-  var hometown = hometownTextbox.value;
-  var theoryScore = parseFloat(theoryScoreTextbox.value);
-  var practiceScore = parseFloat(practiceScoreTextbox.value);
-  var student = new Student(
-    fullName,
-    birthYear,
-    gender,
-    email,
-    hometown,
-    theoryScore,
-    practiceScore
-  );
+    var fullName = fullNameTextbox.value;
+    var birthYear = parseInt(birthYearTextbox.value);
+    var gender = genderSelect.value;
+    var email = emailTextbox.value;
+    var hometown = hometownTextbox.value;
+    var theoryScore = parseFloat(theoryScoreTextbox.value);
+    var practiceScore = parseFloat(practiceScoreTextbox.value);
 
-  studentList.add(student);
-  studentList.save(); // Lưu dữ liệu vào Local Storage
-  fullNameTextbox.value = "";
-  birthYearTextbox.value = "";
-  genderSelect.value = "Nam";
-  emailTextbox.value = "";
-  hometownTextbox.value = "";
-  theoryScoreTextbox.value = "";
-  practiceScoreTextbox.value = "";
-  studentList.display(); // Hiển thị danh sách sau khi thêm
+    var student = new Student(
+      fullName,
+      birthYear,
+      gender,
+      email,
+      hometown,
+      theoryScore,
+      practiceScore
+    );
 
-  // fullNameTextbox.focus();
-  $("fullName").focus();
-  console.log("Ham duoc goi");
+    studentList.add(student);
+    studentList.save(); // Lưu dữ liệu vào Local Storage
+    fullNameTextbox.value = "";
+    birthYearTextbox.value = "";
+    genderSelect.value = "Nam";
+    emailTextbox.value = "";
+    hometownTextbox.value = "";
+    theoryScoreTextbox.value = "";
+    practiceScoreTextbox.value = "";
+    studentList.display(); // Hiển thị danh sách sau khi thêm
+
+    $("fullName").focus();
+  }
 };
 
 var clearStudentList = function () {
@@ -114,6 +116,7 @@ var updateStudent = function () {
     // Cập nhật thông tin sinh viên
     studentList.edit(index, student);
     studentList.save();
+    studentList.display();
 
     // Xóa giá trị trong các ô và hiển thị lại nút "Thêm Sinh viên"
     fullNameTextbox.value = "";
@@ -152,17 +155,20 @@ var cancelEdit = function () {
   $("cancelEdit").style.display = "none";
 };
 
+var sortByName = function () {
+  studentList.sortByName();
+  studentList.display();
+};
+
+var sortByMark = function (a, b) {
+  var markA = a.getAverage(),
+    markB = b.getAverage();
+
+  return markB - markA;
+};
+
 window.onload = function () {
   registerForm = new RegisterForm();
-  registerForm.resetForm();
-  $("addStudentButton").onclick = function () {
-    if (registerForm.validateForm()) {
-      $("addStudentForm").submit();
-      addToStudentList();
-    }
-  };
-  $("clearStudentButton").onclick = clearStudentList;
-
   studentList.load(); // Gọi hàm load để khôi phục dữ liệu từ Local Storage
 
   $("addStudentButton").onclick = addToStudentList;
@@ -170,6 +176,9 @@ window.onload = function () {
   // Thêm sự kiện cho nút "Cập nhật" và "Hủy"
   $("updateStudentButton").onclick = updateStudent;
   $("cancelEdit").onclick = cancelEdit;
+
+  $("btnSortName").onclick = sortByName;
+  $("btnSortMark").onclick = sortByMark;
 
   studentList.deleteClickHandler = deleteFromStudentList;
   studentList.editClickHandler = editFromStudentList;
