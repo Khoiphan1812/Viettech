@@ -20,8 +20,8 @@ var sortByName = function (a, b) {
 };
 
 var sortByMark = function (a, b) {
-  var markA = a.getAverage(),
-    markB = b.getAverage();
+  var markA = a.calculateAverage(),
+    markB = b.calculateAverage();
 
   return (markB - markA) * studentList.sortDirection;
 };
@@ -35,6 +35,10 @@ var studentList = {
   theLastSort: null,
   sortDirection: null,
 
+  sort: function () {
+    this.students.sort(this.theLastSort);
+  },
+
   load: function () {
     if (this.students.length === 0) {
       studentList.students = this.storage.get();
@@ -47,10 +51,6 @@ var studentList = {
     return this;
   },
 
-  sort: function () {
-    this.students.sort(this.theLastSort);
-    return this;
-  },
   sortByName: function () {
     this.theLastSort = sortByName;
     this.students.sort(this.theLastSort);
@@ -83,7 +83,6 @@ var studentList = {
   },
 
   display: function () {
-    //this.sortByMark();
     var html = "";
 
     for (var i = 0; i < this.students.length; i++) {
