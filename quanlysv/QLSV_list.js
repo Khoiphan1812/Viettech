@@ -55,7 +55,7 @@ var clearStudentList = function () {
 };
 
 var deleteFromStudentList = function () {
-  var index = this.title;
+  var index = this.title.substring(7);
   studentList.delete(index);
   studentList.save(); // Lưu dữ liệu vào Local Storage
   studentList.display();
@@ -156,20 +156,29 @@ var cancelEdit = function () {
 };
 
 var sortByName = function () {
-  studentList.sortByName();
-  studentList.display();
+  studentList.sortDirection *= -1;
+  studentList.sortByName().display();
+  if (studentList.sortDirection === 1) {
+    $("sort_by_name_icon").className = "icon-up";
+  } else {
+    $("sort_by_name_icon").className = "icon-down";
+  }
 };
 
-var sortByMark = function (a, b) {
-  var markA = a.getAverage(),
-    markB = b.getAverage();
+var sortByMark = function () {
+  studentList.sortDirection *= -1;
+  studentList.sortByMark().display();
 
-  return markB - markA;
+  if (studentList.sortDirection === 1) {
+    $("sort_by_mark_icon").className = "icon-down";
+  } else {
+    $("sort_by_mark_icon").className = "icon-up";
+  }
 };
 
 window.onload = function () {
   registerForm = new RegisterForm();
-  studentList.load(); // Gọi hàm load để khôi phục dữ liệu từ Local Storage
+  studentList.load();
 
   $("addStudentButton").onclick = addToStudentList;
   $("clearStudentButton").onclick = clearStudentList;
@@ -183,11 +192,7 @@ window.onload = function () {
   studentList.deleteClickHandler = deleteFromStudentList;
   studentList.editClickHandler = editFromStudentList;
   studentList.displayDiv = $("studentList");
-
-  // Kiểm tra xem có dữ liệu trong Local Storage không
-  if (studentList.students.length > 0) {
-    studentList.display();
-  }
+  studentList.load().display();
 
   $("fullName").focus();
 };

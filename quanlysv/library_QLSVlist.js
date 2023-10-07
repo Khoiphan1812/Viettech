@@ -4,88 +4,62 @@ var $ = function (id) {
   return document.getElementById(id);
 };
 
+var sortByName = function (a, b) {
+  var nameA = a.fullName,
+    nameB = b.fullName;
+  var firstNameA = nameA.substr(nameA.lastIndexOf(" ") + 1),
+    firstNameB = nameB.substr(nameB.lastIndexOf(" ") + 1);
+
+  if (firstNameA > firstNameB) {
+    return 1 * studentList.sortDirection;
+  } else if (firstNameA < firstNameB) {
+    return -1 * studentList.sortDirection;
+  } else {
+    return 0;
+  }
+};
+
+var sortByMark = function (a, b) {
+  var markA = a.getAverage(),
+    markB = b.getAverage();
+
+  return (markB - markA) * studentList.sortDirection;
+};
+
 var studentList = {
   students: [],
-  storage: getStudentStorage("students_11"),
+  storage: getStudentObjectStorage("students_11"),
   displayDiv: null,
   deleteClickHandler: null,
   editClickHandler: null,
-
-  sortByMark: function () {
-    this.students.sort(function (a, b) {
-      return b.calculateAverage() - a.calculateAverage();
-    });
-  },
-
-  sortByName: function () {
-    this.students.sort(function (a, b) {
-      var fullNameA = a.fullName.toLowerCase(),
-        fullNameB = b.fullName.toLowerCase();
-
-      if (fullNameA < fullNameB) return -1;
-      if (fullNameA > fullNameB) return 1;
-      return 0;
-    });
-  },
+  theLastSort: null,
+  sortDirection: null,
 
   load: function () {
-    var dataStringArray = this.storage.get();
-    if (Array.isArray(dataStringArray)) {
-      this.students = dataStringArray
-        .map(function (studentStr) {
-          var studentData = studentStr.split(";");
-          if (studentData.length >= 8) {
-            return new Student(
-              studentData[0],
-              parseInt(studentData[1]),
-              studentData[2],
-              studentData[3],
-              studentData[4],
-              parseFloat(studentData[5]),
-              studentData[6]
-            );
-          } else {
-            // Xử lý trường hợp dữ liệu không hợp lệ
-            return null; // Hoặc thực hiện xử lý khác tùy ý
-          }
-        })
-        .filter(function (student) {
-          return student !== null; // Loại bỏ các đối tượng null
-        });
-    } else {
-      this.students = [];
+    if (this.students.length === 0) {
+      studentList.students = this.storage.get();
     }
+    return this;
   },
 
   save: function () {
-    var dataString = this.students
-      .map(function (student) {
-        var averageScore = parseFloat(student.calculateAverage()); // Chuyển đổi giá trị trung bình sang số
-        var averageScoreStr = "";
-        var averageAge = parseInt(student.calculateAge());
-        if (!isNaN(averageScore)) {
-          averageScoreStr = averageScore.toFixed(2);
-          console.log(averageScoreStr); // Nếu là số, thì làm tròn 2 chữ số
-        }
-        return (
-          student.fullName +
-          ";" +
-          student.birthYear +
-          ";" +
-          student.gender +
-          ";" +
-          student.email +
-          ";" +
-          student.hometown +
-          ";" +
-          student.theoryScore +
-          ";" +
-          student.practiceScore +
-          ";"
-        );
-      })
-      .join("|");
-    this.storage.set(dataString);
+    this.storage.set(this.students);
+    return this;
+  },
+
+  sort: function () {
+    this.students.sort(this.theLastSort);
+    return this;
+  },
+  sortByName: function () {
+    this.theLastSort = sortByName;
+    this.students.sort(this.theLastSort);
+    return this;
+  },
+  sortByMark: function () {
+    this.theLastSort = sortByMark;
+    this.students.sort(this.theLastSort);
+    return this;
   },
 
   add: function (student) {
@@ -109,7 +83,7 @@ var studentList = {
   },
 
   display: function () {
-    this.sortByMark();
+    //this.sortByMark();
     var html = "";
 
     for (var i = 0; i < this.students.length; i++) {

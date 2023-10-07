@@ -1,29 +1,62 @@
-// Định nghĩa prototype cho lưu trữ
+"use strict";
+
 var storagePrototype = {
-    get: function () {
-      var str = localStorage.getItem(this.key);
-      if (typeof str === "string" && str !== "") {
-        return str.split("|");
-      } else {
-        return [];
-      }
-    },
-  
-    set: function (dataString) {
-      localStorage.setItem(this.key, dataString);
-    },
-    clear: function () {
-      localStorage.setItem(this.key, "");
-    },
-  };
-  
-  // Tạo đối tượng lưu trữ
-  var getStudentStorage = function (key) {
-    var storage = Object.create(storagePrototype);
-    storage.key = key;
-    return storage;
-  };
-  
+  get: function () {
+    return localStorage.getItem(this.key);
+  },
+
+  set: function (dataString) {
+    localStorage.setItem(this.key, dataString);
+  },
+  clear: function () {
+    localStorage.setItem(this.key, "");
+  },
+};
+
+// Tạo đối tượng lưu trữ
+var getStudentStorage = function (key) {
+  var storage = Object.create(storagePrototype);
+  storage.key = key;
+  return storage;
+};
+
+var objectArrayStoragePrototype = Object.create(storagePrototype);
+
+objectArrayStoragePrototype.get = function () {
+  var str = storagePrototype.get.call(this) || "";
+  var arr = [];
+
+  if (str !== "") {
+    arr = JSON.parse(str).map(function (objectStudent) {
+      return new Student(
+        objectStudent.fullName,
+        objectStudent.birthYear,
+        objectStudent.gender,
+        objectStudent.email,
+        objectStudent.hometown,
+        objectStudent.theoryScore,
+        objectStudent.practiceScore
+      );
+    });
+  }
+  return arr;
+};
+
+objectArrayStoragePrototype.set = function (arr) {
+  if (Array.isArray(arr)) {
+    var str = "[]";
+    str = JSON.stringify(arr);
+    storagePrototype.set.call(this, str);
+  }
+};
+
+var getStudentObjectStorage = function (key) {
+  var storage = Object.create(objectArrayStoragePrototype);
+  storage.key = key;
+  return storage;
+};
+
+/* 
   // Định nghĩa prototype cho objectArrayStorage
   var objectArrayStoragePrototype = Object.create(storagePrototype);
   
@@ -81,47 +114,6 @@ var storagePrototype = {
     storage.key = key;
     return storage;
   };
-  // Định nghĩa đối tượng Student
-  function Student(
-    fullName,
-    birthYear,
-    gender,
-    email,
-    hometown,
-    theoryScore,
-    practiceScore
-  ) {
-    this.fullName = fullName;
-    this.birthYear = birthYear;
-    this.gender = gender;
-    this.email = email;
-    this.hometown = hometown;
-    this.theoryScore = theoryScore;
-    this.practiceScore = practiceScore;
-  
-    // Phương thức tính xếp loại
-    this.calculateClassification = function () {
-        var theoryScoreNumber = parseFloat(this.theoryScore);
-        var practiceScoreNumber = parseFloat(this.practiceScore);
-        (theoryScoreNumber + practiceScoreNumber * 2) / 3;
-      var averageScore =   (theoryScoreNumber + practiceScoreNumber * 2) / 3;
-      if (averageScore >= 8) {
-        return "Giỏi";
-      }  else if (averageScore >=6){
-          return "Kha"
-      }else{
-        return "Yếu";
-      }
-    };
-    };
-  
-  // Ví dụ về cách tạo một đối tượng Student
-  var newStudent = new Student(
-    "Nguyễn Văn A",
-    1995,
-    "Nam",
-    "example@example.com",
-    "Hà Nội",
-    8,
-    7
-  );
+   */
+
+// Ví dụ về cách tạo một đối tượng Student
